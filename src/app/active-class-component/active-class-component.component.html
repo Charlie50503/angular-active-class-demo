@@ -1,0 +1,160 @@
+<div class="active-class-component-wrap">
+  <h1>active-class 測試</h1>
+  <section>
+    <button class="mr-2" type="button" (click)="isShow()">顯示控制</button>
+    <button class="mr-2" type="button" (click)="isChangeColorPrimary()">顏色1</button>
+    <button class="mr-2" type="button" (click)="isChangeColorSecondary()">顏色2</button>
+    <button class="mr-2" type="button" (click)="isRemoveColor()">消除顏色</button>
+    <button type="button" (click)="changeStr()">changeStr</button>
+  </section>
+  <br>
+  <table class="table">
+    <tr>
+      <td>
+        <div class="td-container">
+          <h2 class="h2">靜態寫法:</h2>
+          <h3 class="h3">[ngClass]版本</h3>
+          <ul>
+            <li>
+              <!-- ngClass用string -->
+              <p [ngClass]="'first second'">ngClass 用 string</p>
+            </li>
+            <li>
+              <!-- ngClass用array -->
+              <p [ngClass]="['first', 'second']">ngClass 用 array</p>
+            </li>
+            <li>
+              <!-- ngClass用object -->
+              <p [ngClass]="{ first: true, second: true, third: false }">
+                ngClass 用 object
+              </p>
+            </li>
+            <li>
+              <!-- ngClass用object 配字串 -->
+              <p [ngClass]="{ 'class1 class2 class3': true }">ngClass 用 object 配字串</p>
+            </li>
+          </ul>
+          <h3 class="h3">[class]版本</h3>
+          <ul>
+            <li>
+              <!-- [class]獨有寫法 -->
+              <p [class.first]="true">[class]指定一種 class 寫法</p>
+            </li>
+            <li>
+              <!-- [class]用object 配字串 -->
+              <p [class]="{ 'class1 class2 class3': true }">
+                [class]用 object 配字串(無效果寫法)
+              </p>
+            </li>
+            <li>
+              <!-- [class]用string -->
+              <p [class]="'first second'">[class] 用 string</p>
+            </li>
+            <li>
+              <!-- [class]用array -->
+              <p [class]="['first', 'second']">[class] 用 array</p>
+            </li>
+            <li>
+              <!-- [class]用object -->
+              <p [class]="{ first: true, second: true, third: false }">
+                [class] 用 object
+              </p>
+            </li>
+          </ul>
+        </div>
+
+      </td>
+      <td>
+        <div>
+          <h2 class="h2">動態寫法:</h2>
+          <h3 class="h3">[ngClass]版本</h3>
+          <ul>
+            <li>
+              <p class="fz-bold" [ngClass]="myNewStr">顯示與不顯示 用 string 控制</p>
+            </li>
+            <li>
+              <p [ngClass]="{ 'd-none': isActive }">
+                顯示與不顯示 用 object 單一 class 控制
+              </p>
+            </li>
+            <li>
+              <p [ngClass]="{ 'd-none': returnIsActive() }">
+                顯示與不顯示 用 function return
+              </p>
+            </li>
+            <li>
+              <!-- ngClass用object 配動態切換 -->
+              <p [ngClass]="{ first: true, second: true, 'd-none': isActive }">
+                顯示與不顯示 用 object 多 class 控制一個
+              </p>
+            </li>
+            <li>
+              <div class="fz-bold" [ngClass]="activeClass">顯示與不顯示 用 object 對 object 內屬性作切換 (無效寫法)</div>
+            </li>
+            <!-- 使用ngClass的時候可以與class共存 -->
+            <!-- 用function回傳字串達到切換 -->
+            <li>
+              <p class="fz-bold" [ngClass]="returnActiveColorByString()">
+                測試顏色切換 綁定 function return string
+              </p>
+            </li>
+            <li>
+              <p class="fz-bold" [ngClass]="returnActiveColorByArray()">測試顏色切換 綁定 function return array</p>
+            </li>
+            <li>
+              <p class="fz-bold" [ngClass]="returnActiveColorByObject()">
+                測試顏色切換 綁定 function return object
+              </p>
+            </li>
+          </ul>
+          <h3 class="h3">[class]版本</h3>
+          <ul>
+            <li>
+              <div class="fz-bold" [class]="myNewStr">顯示與不顯示 用 string 控制</div>
+            </li>
+            <li>
+              <!-- [class]獨有寫法 -->
+              <p [class.d-none]="isActive">[class] 單一 class 綁定變量寫法</p>
+            </li>
+            <li>
+              <p [class.d-none]="returnIsActive()">[class] 綁定 return function</p>
+            </li>
+            <li>
+              <!-- [class]用object 配動態切換 -->
+              <p [class]="{ 'd-none': isActive }">[class] 用 object</p>
+            </li>
+            <li>
+              <!-- [class]用object 配動態切換 -->
+              <p [class]="{ first: true, second: true, 'd-none': isActive }">
+                [class] 用 object 多 class 控制一個
+              </p>
+            </li>
+            <!-- 使用[class]的時候可以與class共存 -->
+            <!-- 用function回傳字串達到切換 -->
+            <li>
+              <p class="fz-bold" [class]="returnActiveColorByString()">測試顏色切換 綁定 function return string</p>
+            </li>
+            <li>
+              <p class="fz-bold" [class]="returnActiveColorByArray()">測試顏色切換 綁定 function return array</p>
+              消除顏色無法變化是因為深層變化無法被監聽到
+            </li>
+            <li>
+              <p class="fz-bold" [class]="returnActiveColorByObject()">測試顏色切換 綁定 function return object</p>
+              消除顏色無法變化是因為深層變化無法被監聽到
+            </li>
+          </ul>
+          <h3 class="h3"> class 版本 </h3>
+          <ul>
+            <li>
+              <div class="fz-bold" class="{{ returnIsStr() }}">class 用模板語法 return function</div>
+            </li>
+            <li>
+              <div class="fz-bold" class="{{ activeReturnNewStr() }}">class 用模板語法 return function 複製變量</div>
+            </li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <hr />
+</div>
